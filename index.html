@@ -3,219 +3,257 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fractional - Rent Advance for Landlords</title>
+<title>Fractional - Rent Advance Platform for Landlords</title>
 <style>
-  
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', sans-serif; }
-.hero { background: linear-gradient(135deg, #FF8C00 0%, #FFA500 100%); color: white; padding: 80px 20px; text-align: center; }.hero h1 { font-size: 3em; margin-bottom: 20px; }
-.hero p { font-size: 1.3em; margin-bottom: 30px; }
-.cta { background: white; color: #667eea; padding: 15px 40px; border: none; border-radius: 50px; font-size: 1.1em; cursor: pointer; font-weight: 600; }
-.section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
-.section h2 { text-align: center; font-size: 2.5em; color: #333; margin-bottom: 50px; }
-.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.feature { background: #f8f9fa; padding: 30px; border-radius: 15px; text-align: center; }
-.feature h3 { color: #667eea; margin-bottom: 15px; font-size: 1.5em; }
-#calculator { background: #f0f2f5; }
-.calc-container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-.form-group { margin-bottom: 20px; }
-label { display: block; margin-bottom: 8px; color: #1a1a1a; font-weight: 600; font-size: 15px; }input { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; }
-input:focus { outline: none; border-color: #667eea; }
-.btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; margin-top: 20px; }
-.btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #FF8C00, #FFA500 100%); color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }.results.show { display: block; animation: fadeIn 0.5s; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.result-item { margin-bottom: 15px; padding: 20px; background: white; border-radius: 8px; border-left: 4px solid #667eea; }
-.result-label { font-size: 14px; color: #333; margin-bottom: 5px; font-weight: 600; }.result-value { font-size: 28px; font-weight: 700; color: #333; }
-.risk-low { border-left-color: #4caf50; }
-.risk-medium { border-left-color: #ff9800; }
-.risk-high { border-left-color: #f44336; }
-footer { background: #333; color: white; text-align: center; padding: 30px 20px; }
-  .cta { background: #FF8C00; color: white; padding: 15px 40px; border: none; border-radius: 50px; font-size: 1.1em; cursor: pointer; font-weight: 600; margin-top: 20px; }
-nav { background: #FF8C00; padding: 15px; text-align: center; }
-nav a { color: white; text-decoration: none; margin: 0 20px; font-weight: 600; }
-nav a:hover { text-decoration: underline; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; background: #f8f9fa; line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+nav { background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+nav .container { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+nav .logo { font-size: 24px; font-weight: 700; color: #2563eb; }
+nav .menu { display: flex; gap: 30px; }
+nav .menu a { text-decoration: none; color: #4b5563; font-weight: 500; transition: color 0.3s; }
+nav .menu a:hover, nav .menu a.active { color: #2563eb; }
+.hero { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 80px 20px; text-align: center; }
+.hero h1 { font-size: 48px; margin-bottom: 20px; font-weight: 700; }
+.hero p { font-size: 20px; opacity: 0.95; max-width: 700px; margin: 0 auto 30px; }
+.hero .btn { display: inline-block; background: white; color: #2563eb; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: transform 0.2s; }
+.hero .btn:hover { transform: translateY(-2px); }
+.section { padding: 80px 20px; background: white; }
+.section:nth-child(even) { background: #f8f9fa; }
+.section h2 { font-size: 36px; text-align: center; margin-bottom: 50px; color: #1a1a1a; font-weight: 700; }
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+.feature { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); }
+.feature h3 { font-size: 22px; margin-bottom: 15px; color: #2563eb; font-weight: 600; }
+.feature p { color: #4b5563; font-size: 16px; line-height: 1.7; }
+.calc-wrapper { display: grid; grid-template-columns: 1fr 350px; gap: 40px; max-width: 1100px; margin: 0 auto; }
+.calc-form { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); }
+.form-group { margin-bottom: 25px; }
+.form-group label { display: block; margin-bottom: 8px; color: #1a1a1a; font-weight: 600; font-size: 15px; }
+.form-group input { width: 100%; padding: 12px 15px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; transition: border-color 0.3s; }
+.form-group input:focus { outline: none; border-color: #2563eb; }
+.btn-primary { width: 100%; background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; padding: 16px; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+.btn-primary:hover { transform: translateY(-2px); }
+.info-panel { background: #eff6ff; padding: 30px; border-radius: 12px; border-left: 4px solid #2563eb; }
+.info-panel h4 { color: #1e3a8a; margin-bottom: 15px; font-size: 18px; font-weight: 600; }
+.info-panel p { color: #4b5563; font-size: 14px; margin-bottom: 12px; line-height: 1.6; }
+.info-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #bfdbfe; }
+.info-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.info-item strong { color: #1e3a8a; display: block; margin-bottom: 5px; }
+.results { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); margin-top: 30px; display: none; }
+.result-item { padding: 20px; margin-bottom: 15px; border-radius: 8px; background: #f8f9fa; }
+.result-label { font-size: 14px; color: #6b7280; margin-bottom: 5px; }
+.result-value { font-size: 28px; font-weight: 700; color: #1a1a1a; }
+.risk-low { border-left: 4px solid #10b981; }
+.risk-medium { border-left: 4px solid #f59e0b; }
+.risk-high { border-left: 4px solid #ef4444; }
 .page { display: none; }
 .page.active { display: block; }
-#rewardsCalc { background: #fff8f0; }
+footer { background: #1a1a1a; color: white; text-align: center; padding: 40px 20px; }
+@media (max-width: 768px) { .calc-wrapper { grid-template-columns: 1fr; } .hero h1 { font-size: 32px; } }
 </style>
 </head>
 <body>
-  <nav>
-<a href="#" onclick="showPage('home')">Home</a>
+<nav>
+<div class="container">
+<div class="logo">🏠 Fractional</div>
+<div class="menu">
+<a href="#" onclick="showPage('home')" class="active">Home</a>
 <a href="#" onclick="showPage('calculator')">Returns Calculator</a>
 <a href="#" onclick="showPage('rewards')">Rewards Calculator</a>
 <a href="#" onclick="showPage('apply')">Apply Now</a>
+</div>
+</div>
 </nav>
+
+<div id="home" class="page active">
 <div class="hero">
-  <div id="home" class="page active">
-<h1>🏠 Fractional</h1>
-<p>Get Upfront Rent Payments from Quality Tenants</p>
-<button class="cta" onclick="location.href='#calculator'">Calculate Your Returns</button>
+<div class="container">
+<h1>Get Instant Rent Advance for Your Property</h1>
+<p>Fractional helps landlords access upfront rent payments from quality tenants. Powered by AI risk assessment for secure, fast transactions.</p>
+<a href="#" class="btn" onclick="showPage('calculator'); return false;">Calculate Your Returns</a>
+</div>
 </div>
 
 <div class="section">
-<h2>How It Works</h2>
+<div class="container">
+<h2>How Fractional Works</h2>
 <div class="features">
 <div class="feature">
-<h3>📄 1. List Your Property</h3>
-<p>Share your property details and tenant requirements with us.</p>
+<h3>📝 1. List Your Property</h3>
+<p>Share your property details and tenant information with us. Our platform securely processes your data to evaluate eligibility for rent advance.</p>
 </div>
 <div class="feature">
-<h3>🔍 2. AI Risk Assessment</h3>
-<p>Our AI evaluates tenant profiles and determines advance amounts.</p>
+<h3>🤖 2. AI Risk Assessment</h3>
+<p>Our AI evaluates tenant profiles using credit scores, income ratios, employment history, and payment behavior to determine advance amount and terms.</p>
 </div>
 <div class="feature">
 <h3>💰 3. Get Paid Day 1</h3>
-<p>Receive upfront rent advance directly to your account instantly.</p>
-</div>
-</div>
-</div>
-
-<div id="calculator" class="section">
-<h2>AI Returns Calculator</h2>
-<div class="calc-container">
-<p style="text-align: center; color: #666; margin-bottom: 30px;">Calculate how much advance you'll receive for your tenant's rent tenure</p>
-<form id="calcForm">
-<div class="form-group">
-<label>Monthly Rent Amount (₹)</label>
-<input type="number" id="rent" required min="1000" step="100" placeholder="e.g., 25000">
-</div>
-<div class="form-group">
-<label>Tenant's Monthly Income (₹)</label>
-<input type="number" id="income" required min="0" step="1000" placeholder="e.g., 75000">
-</div>
-<div class="form-group">
-<label>Tenant's Credit Score (300-900)</label>
-<input type="number" id="credit" required min="300" max="900" placeholder="e.g., 750">
-</div>
-<div class="form-group">
-<label>Rent Tenure (Months)</label>
-<input type="number" id="tenure" required min="1" max="60" value="12" placeholder="e.g., 12">
-</div>
-<div class="form-group">
-<label>Years of Employment</label>
-<input type="number" id="employment" required min="0" step="0.5" placeholder="e.g., 3">
-</div>
-<div class="form-group">
-<label>Previous Evictions</label>
-<input type="number" id="evictions" required min="0" value="0">
-</div>
-<div class="form-group">
-<label>Late Payments (Last 12 Months)</label>
-<input type="number" id="latePayments" required min="0" value="0">
-</div>
-<button type="submit" class="btn">Calculate Advance Amount 💰</button>
-</form>
-<div class="results" id="results">
-<div class="result-item" id="riskItem">
-<div class="result-label">Risk Level</div>
-<div class="result-value" id="riskLevel"></div>
-</div>
-<div class="result-item">
-<div class="result-label">Upfront Advance to Landlord</div>
-<div class="result-value" id="advanceAmount" style="color:#667eea;"></div>
-</div>
-<div class="result-item">
-<div class="result-label">Total Rent for Tenure</div>
-<div class="result-value" id="totalRent"></div>
-</div>
-<div class="result-item">
-<div class="result-label">Advance Percentage</div>
-<div class="result-value" id="advancePercent"></div>
+<p>Receive upfront rent advance directly to your account instantly after verification. Use the funds for investments or property improvements.</p>
 </div>
 </div>
 </div>
 </div>
 
 <div class="section">
+<div class="container">
 <h2>Why Choose Fractional?</h2>
 <div class="features">
 <div class="feature">
 <h3>⚡ Instant Liquidity</h3>
-<p>Get rent advance within 24 hours of tenant verification.</p>
+<p>Get rent advance within 24 hours of tenant verification. No waiting months for rental income to accumulate.</p>
 </div>
 <div class="feature">
 <h3>🛡️ Risk Protection</h3>
-<p>AI-powered tenant screening reduces default risk.</p>
+<p>AI-powered tenant screening reduces default risk. We assess creditworthiness, income stability, and rental history comprehensively.</p>
 </div>
 <div class="feature">
 <h3>📊 Better Returns</h3>
-<p>Invest your advance in higher-yield opportunities.</p>
+<p>Invest your advance in higher-yield opportunities. Maximize your portfolio returns while maintaining steady rental income.</p>
+</div>
 </div>
 </div>
 </div>
 
-<footer>
-<p>&copy; 2025 Fractional. Empowering Landlords with Smart Rent Solutions.</p>
-</footer>
-
-<script>
-document.getElementById('calcForm').addEventListener('submit', function(e) {
-e.preventDefault();
-const rent = parseFloat(document.getElementById('rent').value);
-const income = parseFloat(document.getElementById('income').value);
-const credit = parseInt(document.getElementById('credit').value);
-const tenure = parseInt(document.getElementById('tenure').value);
-const employment = parseFloat(document.getElementById('employment').value);
-const evictions = parseInt(document.getElementById('evictions').value);
-const latePayments = parseInt(document.getElementById('latePayments').value);
-const rentToIncome = rent / income;
-const employmentMonths = employment * 12;
-const totalDelays = evictions + latePayments;
-let riskScore = 0.5;
-riskScore -= (credit - 650) * 0.0005;
-riskScore += rentToIncome * 0.8;
-riskScore -= employmentMonths * 0.002;
-riskScore += totalDelays * 0.15;
-riskScore += evictions * 0.25;
-riskScore = Math.max(0.02, Math.min(0.95, riskScore));
-let riskCategory, advancePct, borderColor;
-if (riskScore < 0.15) {
-riskCategory = 'Low Risk';
-advancePct = 75;
-borderColor = 'risk-low';
-} else if (riskScore < 0.35) {
-riskCategory = 'Medium Risk';
-advancePct = 55;
-borderColor = 'risk-medium';
-} else {
-riskCategory = 'High Risk';
-advancePct = 30;
-borderColor = 'risk-high';
-}
-const totalRentForTenure = rent * tenure;
-const advanceAmount = totalRentForTenure * (advancePct / 100);
-document.getElementById('riskLevel').textContent = riskCategory;
-document.getElementById('advanceAmount').textContent = '₹' + advanceAmount.toLocaleString('en-IN', {maximumFractionDigits: 0});
-document.getElementById('totalRent').textContent = '₹' + totalRentForTenure.toLocaleString('en-IN', {maximumFractionDigits: 0});
-document.getElementById('advancePercent').textContent = advancePct + '%';
-document.getElementById('riskItem').className = 'result-item ' + borderColor;
-document.getElementById('results').classList.add('show');
-});
-</script>
-  </div>
+<div class="section">
+<div class="container">
+<h2>Rewards Ecosystem</h2>
+<div class="features">
+<div class="feature">
+<h3>🎁 Earn Reward Points</h3>
+<p>Earn 1 point for every ₹100 in rent collected. Accumulate points across multiple properties and tenants for greater rewards.</p>
+</div>
+<div class="feature">
+<h3>💎 Tier Benefits</h3>
+<p>Bronze (0-5K): Standard service | Silver (5K-10K): 1.2x rewards | Gold (10K-15K): 1.5x rewards | Platinum (15K+): 2x rewards + priority support</p>
+</div>
+<div class="feature">
+<h3>💵 Redeem for Cash</h3>
+<p>Convert reward points to cash at ₹0.5 per point. Use for rent advance top-ups, property maintenance, or direct bank transfer.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <div id="calculator" class="page">
 <div class="section">
-<h2>🏠 AI Returns Calculator</h2>
-<p>Calculate your tenant risk and advance amount</p>
+<div class="container">
+<h2>AI Returns Calculator</h2>
+<div class="calc-wrapper">
+<div class="calc-form">
+<h3 style="margin-bottom:20px;color:#2563eb;">Enter Tenant Details</h3>
+<form id="calcForm" onsubmit="calculateRisk(event)">
+<div class="form-group">
+<label>Monthly Rent Amount (₹)</label>
+<input type="number" id="rent" min="1000" required placeholder="e.g., 25000">
+</div>
+<div class="form-group">
+<label>Tenant's Monthly Income (₹)</label>
+<input type="number" id="income" required placeholder="e.g., 75000">
+</div>
+<div class="form-group">
+<label>Tenant's Credit Score (300-900)</label>
+<input type="number" id="credit" min="300" max="900" required placeholder="e.g., 750">
+</div>
+<div class="form-group">
+<label>Rent Tenure (Months)</label>
+<input type="number" id="tenure" min="1" max="60" value="12" required>
+</div>
+<div class="form-group">
+<label>Years of Employment</label>
+<input type="number" id="employment" min="0" required placeholder="e.g., 3">
+</div>
+<div class="form-group">
+<label>Previous Evictions</label>
+<input type="number" id="evictions" min="0" value="0" required>
+</div>
+<div class="form-group">
+<label>Late Payments (Last 12 Months)</label>
+<input type="number" id="latePayments" min="0" value="0" required>
+</div>
+<button type="submit" class="btn-primary">Calculate Advance Amount 📊</button>
+</form>
+<div id="results" class="results"></div>
+</div>
+<div class="info-panel">
+<h4>📊 Understanding the Calculator</h4>
+<div class="info-item">
+<strong>Monthly Rent Amount</strong>
+<p>The monthly rent your tenant will pay. This forms the basis for calculating the total advance amount over the tenure period.</p>
+</div>
+<div class="info-item">
+<strong>Tenant's Monthly Income</strong>
+<p>Used to calculate the rent-to-income ratio. Ideally, rent should be 30-40% of monthly income. Higher ratios indicate increased payment risk.</p>
+</div>
+<div class="info-item">
+<strong>Credit Score</strong>
+<p>Credit scores above 750 indicate excellent creditworthiness. Scores below 650 may result in lower advance percentages due to higher default risk.</p>
+</div>
+<div class="info-item">
+<strong>Rent Tenure</strong>
+<p>The length of the rental agreement in months. Longer tenures allow for larger total advances but also carry extended risk exposure.</p>
+</div>
+<div class="info-item">
+<strong>Employment History</strong>
+<p>Longer employment duration indicates income stability. Tenants with 3+ years at current job pose lower risk.</p>
+</div>
+<div class="info-item">
+<strong>Evictions & Late Payments</strong>
+<p>Past rental behavior is the strongest predictor of future performance. Any history of evictions or late payments significantly impacts advance eligibility.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
 <div id="rewards" class="page">
-<div id="rewardsCalc" class="section">
+<div class="section">
+<div class="container">
 <h2>🎁 Rewards Calculator</h2>
-<p>Calculate your reward points and earnings</p>
-<div class="calc-container">
+<div class="calc-wrapper">
+<div class="calc-form">
+<h3 style="margin-bottom:20px;color:#2563eb;">Calculate Your Rewards</h3>
+<div class="form-group">
 <label>Monthly Rent (₹)</label>
-<input type="number" id="rewardRent" value="25000">
-<label>Tenure (Months)</label>
-<input type="number" id="rewardTenure" value="12">
-<button class="btn" onclick="calculateRewards()">Calculate Rewards</button>
-<div id="rewardResults" style="margin-top:30px;display:none">
-<div class="result-item"><span class="result-label">Total Reward Points</span><span id="totalPoints"></span></div>
-<div class="result-item"><span class="result-label">Cash Value (₹)</span><span id="cashValue"></span></div>
-<div class="result-item"><span class="result-label">Next Tier Bonus</span><span id="tierBonus"></span></div>
+<input type="number" id="rwdRent" value="25000" min="1000">
+</div>
+<div class="form-group">
+<label>Rent Tenure (Months)</label>
+<input type="number" id="rwdTenure" value="12" min="1" max="60">
+</div>
+<button onclick="calcRewards()" class="btn-primary">Calculate Rewards 🎁</button>
+<div id="rwdResults" style="display:none;margin-top:30px;">
+<div class="result-item">
+<div class="result-label">Total Reward Points</div>
+<div class="result-value" id="rwdPoints"></div>
+</div>
+<div class="result-item">
+<div class="result-label">Cash Value (₹)</div>
+<div class="result-value" id="rwdCash"></div>
+</div>
+<div class="result-item" style="background:#eff6ff;">
+<div class="result-label">Your Tier</div>
+<div class="result-value" id="rwdTier" style="font-size:20px;"></div>
+</div>
+</div>
+</div>
+<div class="info-panel">
+<h4>🎁 Rewards Program</h4>
+<div class="info-item">
+<strong>Earning Points</strong>
+<p>Earn 1 reward point for every ₹100 in rent collected through Fractional. Points accumulate automatically across all your properties.</p>
+</div>
+<div class="info-item">
+<strong>Tier System</strong>
+<p>Bronze (0-5K pts): Standard | Silver (5K-10K): 1.2x multiplier | Gold (10K-15K): 1.5x multiplier | Platinum (15K+): 2x multiplier + priority support</p>
+</div>
+<div class="info-item">
+<strong>Redemption</strong>
+<p>Redeem points for cash at ₹0.5 per point. Minimum redemption: 1000 points. Instant transfer to your registered bank account.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -223,52 +261,124 @@ document.getElementById('results').classList.add('show');
 
 <div id="apply" class="page">
 <div class="section">
+<div class="container">
 <h2>📝 Landlord Application</h2>
-<p>Share your details and book an appointment</p>
-<div class="calc-container">
+<div class="calc-wrapper" style="grid-template-columns:1fr;max-width:800px;">
+<div class="calc-form">
+<h3 style="margin-bottom:20px;color:#2563eb;">Share Your Details</h3>
+<div class="form-group">
 <label>Property Owner Name</label>
-<input type="text" id="ownerName" placeholder="Full Name">
+<input type="text" id="ownerName" placeholder="Full Name" required>
+</div>
+<div class="form-group">
 <label>Property Address</label>
-<input type="text" id="propertyAddress" placeholder="Complete Address">
-<label>Monthly Rent (₹)</label>
-<input type="number" id="expectedRent" placeholder="25000">
-<label>Email</label>
-<input type="email" id="email" placeholder="your@email.com">
+<input type="text" id="propAddress" placeholder="Complete Address" required>
+</div>
+<div class="form-group">
+<label>Expected Monthly Rent (₹)</label>
+<input type="number" id="expRent" placeholder="25000" required>
+</div>
+<div class="form-group">
+<label>Email Address</label>
+<input type="email" id="email" placeholder="your@email.com" required>
+</div>
+<div class="form-group">
 <label>Phone Number</label>
-<input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
+<input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" required>
+</div>
+<div class="form-group">
 <label>Preferred Appointment Date</label>
-<input type="date" id="appointmentDate">
-<button class="btn" onclick="submitApplication()">Submit Application</button>
+<input type="date" id="appDate" required>
+</div>
+<button onclick="submitApp()" class="btn-primary">Submit Application 🚀</button>
 </div>
 </div>
 </div>
+</div>
+</div>
+
+<footer>
+<p>© 2025 Fractional. Empowering Landlords with AI-Powered Rent Solutions.</p>
+</footer>
 
 <script>
 function showPage(pageId) {
 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 document.getElementById(pageId).classList.add('active');
+document.querySelectorAll('nav .menu a').forEach(a => a.classList.remove('active'));
+event.target.classList.add('active');
+window.scrollTo(0,0);
 }
 
-function calculateRewards() {
-const rent = parseFloat(document.getElementById('rewardRent').value) || 0;
-const tenure = parseFloat(document.getElementById('rewardTenure').value) || 0;
+function calculateRisk(e) {
+e.preventDefault();
+const rent = parseFloat(document.getElementById('rent').value);
+const income = parseFloat(document.getElementById('income').value);
+const credit = parseFloat(document.getElementById('credit').value);
+const tenure = parseFloat(document.getElementById('tenure').value);
+const employment = parseFloat(document.getElementById('employment').value);
+const evictions = parseFloat(document.getElementById('evictions').value);
+const latePayments = parseFloat(document.getElementById('latePayments').value);
+
+const rentRatio = (rent / income) * 100;
+let riskScore = 50;
+if (credit > 750) riskScore += 20; else if (credit > 650) riskScore += 10; else riskScore -= 10;
+if (rentRatio < 30) riskScore += 15; else if (rentRatio > 40) riskScore -= 15;
+if (employment >= 3) riskScore += 10; else if (employment < 1) riskScore -= 10;
+if (evictions > 0) riskScore -= 20;
+if (latePayments > 2) riskScore -= 15; else if (latePayments > 0) riskScore -= 5;
+
+let riskLevel = 'Medium Risk';
+let riskClass = 'risk-medium';
+let advancePercent = 30;
+if (riskScore >= 70) { riskLevel = 'Low Risk'; riskClass = 'risk-low'; advancePercent = 50; }
+else if (riskScore < 40) { riskLevel = 'High Risk'; riskClass = 'risk-high'; advancePercent = 20; }
+
+const totalRent = rent * tenure;
+const advanceAmount = Math.floor(totalRent * (advancePercent / 100));
+
+const resultsDiv = document.getElementById('results');
+resultsDiv.innerHTML = `
+<div class="result-item ${riskClass}">
+<div class="result-label">Risk Level</div>
+<div class="result-value">${riskLevel}</div>
+</div>
+<div class="result-item">
+<div class="result-label">Upfront Advance to Landlord</div>
+<div class="result-value">₹${advanceAmount.toLocaleString('en-IN')}</div>
+</div>
+<div class="result-item">
+<div class="result-label">Total Rent for Tenure</div>
+<div class="result-value">₹${totalRent.toLocaleString('en-IN')}</div>
+</div>
+<div class="result-item">
+<div class="result-label">Advance Percentage</div>
+<div class="result-value">${advancePercent}%</div>
+</div>
+`;
+resultsDiv.style.display = 'block';
+}
+
+function calcRewards() {
+const rent = parseFloat(document.getElementById('rwdRent').value) || 0;
+const tenure = parseFloat(document.getElementById('rwdTenure').value) || 0;
 const totalRent = rent * tenure;
 const points = Math.floor(totalRent / 100);
-const cashValue = points * 0.5;
-let tierBonus = 'Bronze (0-5000 pts)';
-if (points > 15000) tierBonus = 'Platinum (15000+ pts) - 2x rewards!';
-else if (points > 10000) tierBonus = 'Gold (10000+ pts) - 1.5x rewards';
-else if (points > 5000) tierBonus = 'Silver (5000+ pts) - 1.2x rewards';
-document.getElementById('totalPoints').textContent = points.toLocaleString('en-IN');
-document.getElementById('cashValue').textContent = '₹' + cashValue.toLocaleString('en-IN');
-document.getElementById('tierBonus').textContent = tierBonus;
-document.getElementById('rewardResults').style.display = 'block';
+const cash = points * 0.5;
+let tier = 'Bronze (0-5K pts)';
+if (points >= 15000) tier = 'Platinum (15K+ pts) 💎';
+else if (points >= 10000) tier = 'Gold (10K-15K pts) 🥇';
+else if (points >= 5000) tier = 'Silver (5K-10K pts) 🥈';
+document.getElementById('rwdPoints').textContent = points.toLocaleString('en-IN');
+document.getElementById('rwdCash').textContent = '₹' + cash.toLocaleString('en-IN');
+document.getElementById('rwdTier').textContent = tier;
+document.getElementById('rwdResults').style.display = 'block';
 }
 
-function submitApplication() {
+function submitApp() {
 const name = document.getElementById('ownerName').value;
 if (!name) { alert('Please enter your name'); return; }
-alert('Thank you ' + name + '! We will contact you within 24 hours to schedule your appointment.');
+alert('Thank you ' + name + '! Your application has been submitted. Our team will contact you within 24 hours to schedule your appointment.');
 }
 </script>
 </body>
