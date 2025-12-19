@@ -1,0 +1,13 @@
+{
+  "intercept": -0.82719523096754,
+  "coefficients": {
+    "monthly_income": -3.621037584432228e-06,
+    "monthly_rent": 6.31954426378064e-05,
+    "employment_months": -0.014273026177760327,
+    "past_delays_count": 0.095799045965513,
+    "bank_balance_avg": -4.877556631555652e-06,
+    "income_volatility": 0.9573801639238069,
+    "geo_risk_score": 0.45677495782479005,
+    "rent_to_income_ratio": 0.5282491708135343
+  }
+}
