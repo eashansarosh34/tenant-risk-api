@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)  # Allow requests from your website
 
 # Load trained model
-with open('tenant_risk_model.pkl', 'rb') as f:
+with open('tenant_risk_model (1).pkl', 'rb') as f:
     model = pickle.load(f)
 
 print("✓ Tenant Risk Model loaded successfully")
