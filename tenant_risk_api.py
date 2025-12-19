@@ -14,6 +14,18 @@ with open('tenant_risk_model (1).pkl', 'rb') as f:
 
 print("✓ Tenant Risk Model loaded successfully")
 
+@app.route('/')
+def home():
+    return jsonify({
+        'service': 'Tenant Risk Scoring API',
+        'version': '1.0',
+        'status': 'online',
+        'endpoints': {
+            'health': '/api/health',
+            'score_tenant': '/api/score-tenant (POST)'
+        }
+    })
+
 @app.route('/api/score-tenant', methods=['POST'])
 def score_tenant():
     """Score tenant risk and compute advance amount"""
