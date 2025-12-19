@@ -33,17 +33,21 @@ def score_tenant():
         data = request.json
         
         # Extract features in correct order
-        monthly_income = float(data.get('monthly_income', 50000))
-        monthly_rent = float(data.get('monthly_rent', 20000))
-        employment_months = float(data.get('employment_months', 12))
-        past_delays_count = float(data.get('past_delays_count', 0))
-        bank_balance_avg = float(data.get('bank_balance_avg', 80000))
-        income_volatility = float(data.get('income_volatility', 0.2))
-        geo_risk_score = float(data.get('geo_risk_score', 0.5))
-        rent_to_income_ratio = monthly_rent / monthly_income if monthly_income > 0 else 0.4
+        # Map website field names to API expectations
+        age = int(data.get('age', 30))
+        monthly_income = float(data.get('income', 50000))
+        monthly_rent = float(data.get('rent', 20000))
+        credit_score = int(data.get('credit_score', 650))
+        employment_years = float(data.get('employment_years', 1))
+        employment_months = employment_years * 12
+        previous_evictions = int(data.get('previous_evictions', 0))
+        late_payments = int(data.get('late_payments', 0))
+        past_delays_count = float(previous_evictions + late_payments)
         
+        # Use reasonable defaults for fields not in website form
+        bank_balance_avg = monthly_income * 2  # Estimate
+        income_volatility = 0.2  # Default assumption
         # Create feature array
-        features = np.array([[
             monthly_income,
             monthly_rent,
             employment_months,
@@ -92,17 +96,10 @@ def score_tenant():
         points = int(total_rent / 100)
         
         return jsonify({
-            'success': True,
-            'pd': float(pd_proba),
-            'risk_score': float(risk_score),
-            'risk_tier': risk_tier,
-            'advance_amount': float(advance_amount),
-            'advance_percentage': float(advance_pct * 100),
-            'total_rent': float(total_rent),
-            'expected_loss': float(el_amount),
-            'points': points
-        })
-        
+            'default_probability': float(pd_proba),
+            'risk_category': risk_tier,
+            'recommended_advance_percentage': int(advance_pct * 100),
+            'confidence': 'high' if 0.05 < pd_proba < 0.25 else 'medium'
     except Exception as e:
         return jsonify({
             'success': False,
