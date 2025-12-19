@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractional - Rent Advance Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            display: none;
+        }
+        
+        .results.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .result-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .risk-low { border-left-color: #4caf50; }
+        .risk-medium { border-left-color: #ff9800; }
+        .risk-high { border-left-color: #f44336; }
+        
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .error.show {
+            display: block;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            display: none;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 Fractional</h1>
+        <p class="subtitle">AI-Powered Rent Advance Calculator</p>
+        
+        <form id="tenantForm">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" required min="18" max="100" placeholder="Enter age">
+            </div>
+            
+            <div class="form-group">
+                <label for="income">Monthly Income ($)</label>
+                <input type="number" id="income" required min="0" step="0.01" placeholder="Enter monthly income">
+            </div>
+            
+            <div class="form-group">
+                <label for="credit_score">Credit Score</label>
+                <input type="number" id="credit_score" required min="300" max="850" placeholder="Enter credit score (300-850)">
+            </div>
+            
+            <div class="form-group">
+                <label for="employment_years">Years of Employment</label>
+                <input type="number" id="employment_years" required min="0" step="0.1" placeholder="Enter years of employment">
+            </div>
+            
+            <div class="form-group">
+                <label for="evictions">Previous Evictions</label>
+                <input type="number" id="evictions" required min="0" placeholder="Number of previous evictions">
+            </div>
+            
+            <div class="form-group">
+                <label for="late_payments">Late Payments (Last 12 Months)</label>
+                <input type="number" id="late_payments" required min="0" placeholder="Number of late payments">
+            </div>
+            
+            <div class="form-group">
+                <label for="rent">Monthly Rent ($)</label>
+                <input type="number" id="rent" required min="0" step="0.01" placeholder="Enter monthly rent amount">
+            </div>
+            
+            <button type="submit" class="btn" id="calculateBtn">Calculate Risk & Advance</button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <p>🔄 Analyzing tenant profile with AI...</p>
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="results" id="results">
+            <div class="result-item" id="riskCategoryItem">
+                <div class="result-label">Risk Category</div>
+                <div class="result-value" id="riskCategory">-</div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Default Probability</div>
+                <div class="result-value" id="defaultProb">-</div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Recommended Advance Percentage</div>
+                <div class="result-value" id="advancePercent">-</div>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">Advance Amount</div>
+                <div class="result-value" id="advanceAmount">-</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'https://tenant-risk-api.onrender.com/api/score-tenant';
+        
+        document.getElementById('tenantForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const age = parseInt(document.getElementById('age').value);
+            const income = parseFloat(document.getElementById('income').value);
+            const creditScore = parseInt(document.getElementById('credit_score').value);
+            const employmentYears = parseFloat(document.getElementById('employment_years').value);
+            const evictions = parseInt(document.getElementById('evictions').value);
+            const latePayments = parseInt(document.getElementById('late_payments').value);
+            const rent = parseFloat(document.getElementById('rent').value);
+            
+            // Calculate rent to income ratio
+            const rentToIncomeRatio = rent / income;
+            
+            // Prepare data
+            const tenantData = {
+                age: age,
+                income: income,
+                credit_score: creditScore,
+                employment_years: employmentYears,
+                previous_evictions: evictions,
+                late_payments: latePayments,
+                rent_to_income_ratio: rentToIncomeRatio
+            };
+            
+            // Show loading, hide results and errors
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('error').classList.remove('show');
+            document.getElementById('calculateBtn').disabled = true;
+            
+            try {
+                // Call API
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(tenantData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+                
+                const result = await response.json();
+                
+                // Display results
+                displayResults(result, rent);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                const errorDiv = document.getElementById('error');
+                errorDiv.textContent = 'Error calculating risk. Please try again or check if the API is running.';
+                errorDiv.classList.add('show');
+            } finally {
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('calculateBtn').disabled = false;
+            }
+        });
+        
+        function displayResults(result, monthlyRent) {
+            // Update risk category with color
+            const riskCategoryItem = document.getElementById('riskCategoryItem');
+            const riskCategory = document.getElementById('riskCategory');
+            riskCategory.textContent = result.risk_category;
+            
+            // Remove all risk classes and add appropriate one
+            riskCategoryItem.classList.remove('risk-low', 'risk-medium', 'risk-high');
+            if (result.risk_category.toLowerCase().includes('low')) {
+                riskCategoryItem.classList.add('risk-low');
+            } else if (result.risk_category.toLowerCase().includes('medium')) {
+                riskCategoryItem.classList.add('risk-medium');
+            } else {
+                riskCategoryItem.classList.add('risk-high');
+            }
+            
+            // Update other values
+            document.getElementById('defaultProb').textContent = 
+                (result.default_probability * 100).toFixed(1) + '%';
+            
+            document.getElementById('advancePercent').textContent = 
+                result.recommended_advance_percentage + '%';
+            
+            // Calculate and display advance amount
+            const advanceAmount = monthlyRent * (result.recommended_advance_percentage / 100);
+            document.getElementById('advanceAmount').textContent = 
+                '$' + advanceAmount.toFixed(2);
+            
+            // Show results
+            document.getElementById('results').classList.add('show');
+        }
+    </script>
+</body>
+</html>
